@@ -385,12 +385,11 @@
     <span class="logo-name">Derio</span>
   </a>
   <nav>
-    <a href="#" class="active" onclick="show('cgu', this)"><span>Conditions</span> CGU</a>
-    <a href="#" onclick="show('privacy', this)"><span>Confidentialité</span> Privacy</a>
+    <a href="#cgu" id="nav-cgu" class="active" onclick="event.preventDefault(); show('cgu')"><span>Conditions</span> CGU</a>
+    <a href="#privacy" id="nav-privacy" onclick="event.preventDefault(); show('privacy')"><span>Confidentialité</span> Privacy</a>
   </nav>
 </header>
 
-<!-- ── CGU ── -->
 <div id="cgu" class="section active">
   <div class="page-wrap">
     <div class="hero">
@@ -403,6 +402,7 @@
 
       <h2><span class="num">01</span> Acceptation des conditions</h2>
       <p>En téléchargeant ou en utilisant l'application Derio, vous acceptez les présentes Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser l'Application.</p>
+      <p><strong>Vous devez avoir au moins 16 ans</strong> pour créer un compte et utiliser l'Application Derio.</p>
 
       <h2><span class="num">02</span> Abonnements et Facturation</h2>
       <div class="hero-badge" style="margin-bottom:1rem">Derio Pro</div>
@@ -448,7 +448,6 @@
   </div>
 </div>
 
-<!-- ── PRIVACY ── -->
 <div id="privacy" class="section">
   <div class="page-wrap">
     <div class="hero">
@@ -548,7 +547,7 @@
 
 <footer>
   <div class="footer-left">
-    © 2026 Derio · Khudhur Najm ·
+    © 2026 Derio · Édité par Khudhur Najm ·
     <a href="mailto:contact@derioapp.be">contact@derioapp.be</a>
   </div>
   <div class="footer-left" style="text-align:right">
@@ -557,14 +556,37 @@
 </footer>
 
 <script>
-  function show(id, el) {
-    event.preventDefault();
+  // Fonction pour afficher la bonne section et mettre à jour l'URL
+  function show(id) {
+    // 1. Cacher toutes les sections et désélectionner le menu
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    el.classList.add('active');
+    
+    // 2. Afficher la section demandée et activer le bouton
+    let sectionElement = document.getElementById(id);
+    let navElement = document.getElementById('nav-' + id);
+    
+    if(sectionElement) sectionElement.classList.add('active');
+    if(navElement) navElement.classList.add('active');
+    
+    // Remonter en haut de page en douceur
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 3. Mettre à jour l'URL sans recharger la page
+    if(history.pushState) {
+        history.pushState(null, null, '#' + id);
+    } else {
+        window.location.hash = '#' + id;
+    }
   }
+
+  // Écouter le chargement de la page pour ouvrir le bon onglet selon l'URL
+  window.addEventListener('DOMContentLoaded', () => {
+    let hash = window.location.hash.substring(1);
+    if (hash === 'privacy' || hash === 'cgu') {
+      show(hash);
+    }
+  });
 </script>
 </body>
 </html>
