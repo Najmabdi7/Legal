@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Derio — Mentions Légales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e0f11;
+      --surface: #16181c;
+      --surface2: #1e2026;
+      --border: rgba(255,255,255,0.07);
+      --accent: #c8f04a;
+      --accent-dim: rgba(200,240,74,0.12);
+      --text: #e8e9eb;
+      --muted: #7a7d85;
+      --heading-font: 'DM Serif Display', Georgia, serif;
+      --body-font: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body-font);
+      font-size: 15px;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      background: rgba(14,15,17,0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-mark svg { width: 18px; height: 18px; }
+
+    .logo-name {
+      font-family: var(--heading-font);
+      font-size: 1.2rem;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    nav {
+      display: flex;
+      gap: 4px;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--text);
+      background: var(--surface2);
+    }
+
+    nav a.active {
+      color: var(--accent);
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: clamp(2rem, 6vw, 5rem) clamp(1.5rem, 5vw, 2rem);
+    }
+
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-family: var(--heading-font);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── CONTENT ── */
+    .content { animation: fadeUp 0.5s ease both; }
+
+    h2 {
+      font-family: var(--heading-font);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text);
+      margin: 2.5rem 0 0.75rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+    .num {
+      font-family: var(--body-font);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-family: var(--body-font);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p { margin-bottom: 0.85rem; color: var(--text); }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      list-style: none;
+      margin: 0.5rem 0 1rem;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 0.3rem 0 0.3rem 1.25rem;
+      position: relative;
+      color: var(--text);
+    }
+
+    ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 14px;
+    }
+
+    .callout strong {
+      display: block;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ── HIGHLIGHT GRID ── */
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    .highlight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem;
+      font-size: 13.5px;
+    }
+
+    .highlight-card .icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .highlight-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+    /* ── DATA TABLE ── */
+    .data-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .data-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+    }
+
+    .data-row:last-child { border-bottom: none; }
+
+    .data-row > div {
+      padding: 0.8rem 1.1rem;
+    }
+
+    .data-row > div:first-child {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .data-row > div:first-child span { font-size: 1rem; }
+
+    /* ── CONTACT ── */
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      border: 1px solid rgba(200,240,74,0.3);
+      padding: 8px 18px;
+      border-radius: 100px;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .contact-link:hover { background: var(--accent-dim); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-left {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-left a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      nav a span { display: none; }
+      .data-row { grid-template-columns: 1fr; }
+      .data-row > div:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">
+    <div class="logo-mark">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="9" cy="9" r="7" stroke="#0e0f11" stroke-width="2"/>
+        <path d="M6 9.5C6 9.5 7 12 9 12C11 12 12 9.5 12 9.5" stroke="#0e0f11" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="7" cy="7.5" r="1" fill="#0e0f11"/>
+        <circle cx="11" cy="7.5" r="1" fill="#0e0f11"/>
+      </svg>
+    </div>
+    <span class="logo-name">Derio</span>
+  </a>
+  <nav>
+    <a href="#" class="active" onclick="show('cgu', this)"><span>Conditions</span> CGU</a>
+    <a href="#" onclick="show('privacy', this)"><span>Confidentialité</span> Privacy</a>
+  </nav>
+</header>
+
+<!-- ── CGU ── -->
+<div id="cgu" class="section active">
+  <div class="page-wrap">
+    <div class="hero">
+      <div class="hero-badge">Conditions d'Utilisation</div>
+      <h1>Conditions Générales<br><em>d'Utilisation</em></h1>
+      <p class="hero-meta">Dernière mise à jour : 5 avril 2026</p>
+    </div>
+
+    <div class="content">
+
+      <h2><span class="num">01</span> Acceptation des conditions</h2>
+      <p>En téléchargeant ou en utilisant l'application Derio, vous acceptez les présentes Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser l'Application.</p>
+
+      <h2><span class="num">02</span> Abonnements et Facturation</h2>
+      <div class="hero-badge" style="margin-bottom:1rem">Derio Pro</div>
+      <p>Derio propose un abonnement payant donnant accès à des fonctionnalités avancées : analyse détaillée des macros et accès étendu au coach IA.</p>
+      <ul>
+        <li>Le paiement est débité sur votre compte Apple lors de la confirmation de l'achat.</li>
+        <li><strong>Renouvellement automatique</strong> : l'abonnement est renouvelé automatiquement sauf désactivation au moins 24 heures avant la fin de la période en cours.</li>
+        <li>Le renouvellement est facturé dans les 24 heures précédant la fin de la période en cours.</li>
+        <li><strong>Gestion et annulation</strong> : vous pouvez gérer ou annuler votre abonnement dans les réglages de votre compte Apple.</li>
+        <li>Toute période d'essai gratuite restante est annulée lors de la souscription.</li>
+      </ul>
+
+      <h2><span class="num">03</span> Avertissement Médical</h2>
+      <div class="callout">
+        <strong>⚕ Important</strong>
+        Derio est une application de suivi nutritionnel et de bien-être. Elle ne constitue pas un dispositif médical et ne fournit pas d'avis médical. Consultez toujours un professionnel de santé avant toute modification de votre alimentation ou de votre mode de vie.
+      </div>
+      <p>Les informations fournies par l'intelligence artificielle sont uniquement à titre informatif.</p>
+
+      <h2><span class="num">04</span> Compte utilisateur</h2>
+      <p>Vous êtes responsable des informations que vous fournissez et de la sécurité de votre compte. Vous vous engagez à ne pas utiliser l'application à des fins illégales ou abusives.</p>
+
+      <h2><span class="num">05</span> Propriété intellectuelle</h2>
+      <p>L'ensemble de l'Application (design, textes, code, fonctionnalités) est la propriété de <strong>Khudhur Najm</strong>. Toute reproduction, modification ou distribution sans autorisation est interdite.</p>
+
+      <h2><span class="num">06</span> Résiliation</h2>
+      <p>Nous nous réservons le droit de suspendre ou supprimer un compte en cas de non-respect des présentes conditions.</p>
+
+      <h2><span class="num">07</span> Limitation de responsabilité</h2>
+      <p>L'utilisation de l'Application se fait sous votre propre responsabilité. Nous ne garantissons pas l'exactitude absolue des résultats fournis par l'intelligence artificielle.</p>
+
+      <h2><span class="num">08</span> Modifications des conditions</h2>
+      <p>Nous pouvons modifier ces conditions à tout moment. Les modifications seront publiées sur cette page.</p>
+
+      <h2><span class="num">09</span> Contact</h2>
+      <p>Pour toute question :</p>
+      <a class="contact-link" href="mailto:contact@derioapp.be">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        contact@derioapp.be
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── PRIVACY ── -->
+<div id="privacy" class="section">
+  <div class="page-wrap">
+    <div class="hero">
+      <div class="hero-badge">Politique de Confidentialité</div>
+      <h1>Politique de<br><em>Confidentialité</em></h1>
+      <p class="hero-meta">Dernière mise à jour : 5 avril 2026 · Khudhur Najm</p>
+    </div>
+
+    <div class="content">
+
+      <h2><span class="num">01</span> Données collectées</h2>
+      <p>Nous collectons uniquement les données nécessaires au fonctionnement de l'Application.</p>
+
+      <div class="data-block">
+        <div class="data-row">
+          <div><span>👤</span> Compte</div>
+          <div>Adresse e-mail, identifiant utilisateur</div>
+        </div>
+        <div class="data-row">
+          <div><span>🥗</span> Nutrition</div>
+          <div>Aliments enregistrés, photos ou descriptions de repas envoyées à l'IA</div>
+        </div>
+        <div class="data-row">
+          <div><span>📊</span> Utilisation</div>
+          <div>Historique des interactions avec l'Application</div>
+        </div>
+        <div class="data-row">
+          <div><span>💳</span> Abonnement</div>
+          <div>Statut d'abonnement via RevenueCat, sans accès à vos données bancaires</div>
+        </div>
+      </div>
+
+      <h2><span class="num">02</span> Données de santé (Apple HealthKit)</h2>
+      <p>Avec votre consentement explicite, Derio peut accéder à certaines données de santé :</p>
+
+      <div class="highlight-grid">
+        <div class="highlight-card"><span class="icon">⚖️</span><strong>Poids</strong><p>Suivi de votre progression</p></div>
+        <div class="highlight-card"><span class="icon">🔥</span><strong>Calories actives</strong><p>Ajustement des objectifs</p></div>
+        <div class="highlight-card"><span class="icon">🚶</span><strong>Pas</strong><p>Activité quotidienne</p></div>
+        <div class="highlight-card"><span class="icon">❤️</span><strong>Fréquence cardiaque</strong><p>Données de santé globales</p></div>
+        <div class="highlight-card"><span class="icon">🌙</span><strong>Sommeil</strong><p>Récupération et bien-être</p></div>
+      </div>
+
+      <div class="callout">
+        <strong>🔒 Engagement fort</strong>
+        Nous ne vendons JAMAIS ces données · Nous ne les utilisons PAS à des fins publicitaires · Elles ne sont pas partagées avec des tiers non autorisés
+      </div>
+
+      <h2><span class="num">03</span> Services tiers</h2>
+      <div class="data-block">
+        <div class="data-row">
+          <div><span>🗄️</span> Supabase</div>
+          <div>Stockage sécurisé des données</div>
+        </div>
+        <div class="data-row">
+          <div><span>💰</span> RevenueCat</div>
+          <div>Gestion des abonnements</div>
+        </div>
+        <div class="data-row">
+          <div><span>🤖</span> IA</div>
+          <div>Analyse nutritionnelle des repas — données non utilisées pour entraîner des modèles publics</div>
+        </div>
+      </div>
+
+      <h2><span class="num">04</span> Stockage et sécurité</h2>
+      <ul>
+        <li>Données chiffrées via nos fournisseurs</li>
+        <li>Accès sécurisé</li>
+        <li>Mesures standard de protection</li>
+      </ul>
+
+      <h2><span class="num">05</span> Conservation des données</h2>
+      <p>Vos données sont conservées uniquement le temps nécessaire au fonctionnement de l'Application ou jusqu'à suppression de votre compte.</p>
+
+      <h2><span class="num">06</span> Suppression des données</h2>
+      <p>Vous pouvez supprimer vos données directement dans l'application, ou demander la suppression complète de votre compte par e-mail. La suppression sera effectuée dans un délai raisonnable.</p>
+      <a class="contact-link" href="mailto:contact@derioapp.be">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        contact@derioapp.be
+      </a>
+
+      <h2><span class="num">07</span> Vos droits (RGPD)</h2>
+      <p>Conformément au RGPD, vous pouvez accéder à vos données, les corriger, demander leur suppression ou limiter leur traitement.</p>
+
+      <h2><span class="num">08</span> Modifications</h2>
+      <p>Cette politique peut être mise à jour à tout moment. Nous vous recommandons de la consulter régulièrement.</p>
+
+      <h2><span class="num">09</span> Contact</h2>
+      <a class="contact-link" href="mailto:contact@derioapp.be">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        contact@derioapp.be
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    © 2026 Derio · Khudhur Najm ·
+    <a href="mailto:contact@derioapp.be">contact@derioapp.be</a>
+  </div>
+  <div class="footer-left" style="text-align:right">
+    <a href="https://www.derioapp.be" style="color:var(--muted);text-decoration:none">derioapp.be ↗</a>
+  </div>
+</footer>
+
+<script>
+  function show(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
